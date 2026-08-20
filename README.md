@@ -1,6 +1,6 @@
 # Project Shell Space
 
-![Project Shell Space Logo](./assets/logo.png)
+![Project Shell Space Logo](./assets/logo.jpeg)
 
 ---
 
