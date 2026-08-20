@@ -1,0 +1,113 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Page-1" id="J4Id-nJpvQ6vekmjtlmN">
+    <mxGraphModel dx="3920" dy="1944" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="0" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="dMk8Iwq8JXJemCDq5vGa-69" edge="1" parent="1" source="dMk8Iwq8JXJemCDq5vGa-15" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="181" y="27.826431274414062" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dMk8Iwq8JXJemCDq5vGa-15" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 42px;&quot;&gt;Project-Shell-Space-Main&lt;/font&gt;" vertex="1">
+          <mxGeometry height="211" width="924" x="-281" y="-268" as="geometry" />
+        </mxCell>
+        <mxCell id="dMk8Iwq8JXJemCDq5vGa-72" edge="1" parent="1" source="dMk8Iwq8JXJemCDq5vGa-70" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;fontSize=12;startSize=8;endSize=8;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="dMk8Iwq8JXJemCDq5vGa-71">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-144.9512993494668" y="337.82643127441406" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dMk8Iwq8JXJemCDq5vGa-70" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 42px;&quot;&gt;Terraform (Iac)&lt;br&gt;Abstract Layer&lt;/font&gt;" vertex="1">
+          <mxGeometry height="211" width="924" x="-281" y="42" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-1" edge="1" parent="1" source="dMk8Iwq8JXJemCDq5vGa-71" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0;entryDx=0;entryDy=0;fontSize=12;startSize=8;endSize=8;" target="dMk8Iwq8JXJemCDq5vGa-79">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-3" edge="1" parent="1" source="dMk8Iwq8JXJemCDq5vGa-71" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0;entryDx=0;entryDy=0;fontSize=12;startSize=8;endSize=8;" target="cttpx7-rtvRdx9965_Ys-2">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-17" edge="1" parent="1" source="dMk8Iwq8JXJemCDq5vGa-71" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;startSize=8;endSize=8;" target="cttpx7-rtvRdx9965_Ys-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="dMk8Iwq8JXJemCDq5vGa-71" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;font-size: 38px; color: light-dark(rgb(0, 0, 0), rgb(166, 128, 184));&quot;&gt;&lt;b&gt;main.tf&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="38" width="160" x="101" y="310" as="geometry" />
+        </mxCell>
+        <mxCell id="dMk8Iwq8JXJemCDq5vGa-79" parent="1" style="whiteSpace=wrap;html=1;fontSize=22;align=left;" value="&lt;font color=&quot;#a680b8&quot;&gt;&lt;b&gt;Technical definition:&lt;/b&gt;&lt;/font&gt;&lt;div&gt;&lt;font color=&quot;#a680b8&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/font&gt;The main entry point where we define, configure, and orchestrate the core infrastructure resources and modules.&lt;/div&gt;" vertex="1">
+          <mxGeometry height="180" width="396.25" x="-365" y="475" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-2" parent="1" style="whiteSpace=wrap;html=1;fontSize=22;align=left;" value="&lt;div&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;&lt;font color=&quot;#a680b8&quot;&gt;&lt;b&gt;Project Shell Space Operational Purpose&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;/span&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Automatically provisions encrypted databases, video servers, cloud storage, containers, caches, and monitoring dashboards.&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="180" width="456" x="351" y="475" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-10" edge="1" parent="1" source="cttpx7-rtvRdx9965_Ys-7" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0;entryDx=0;entryDy=0;fontSize=12;startSize=8;endSize=8;" target="cttpx7-rtvRdx9965_Ys-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-19" edge="1" parent="1" source="cttpx7-rtvRdx9965_Ys-7" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=0;entryDy=0;fontSize=12;startSize=8;endSize=8;" target="cttpx7-rtvRdx9965_Ys-12">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-27" edge="1" parent="1" source="cttpx7-rtvRdx9965_Ys-7" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;startSize=8;endSize=8;" target="cttpx7-rtvRdx9965_Ys-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-7" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;color: light-dark(rgb(0, 0, 0), rgb(166, 128, 184)); font-size: 36px;&quot;&gt;&lt;b style=&quot;&quot;&gt;variables.tf&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="91" width="230" x="66" y="1042" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-9" parent="1" style="whiteSpace=wrap;html=1;fontSize=22;align=left;" value="&lt;font color=&quot;#a680b8&quot;&gt;&lt;b&gt;Technical definition&lt;/b&gt;&lt;/font&gt;&lt;div&gt;&lt;font color=&quot;#8b6a9a&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;Configuration files that define the Input Variables to customise and parameterize Terraform deployments.&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="180" width="396.25" x="-375" y="1186" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-12" parent="1" style="whiteSpace=wrap;html=1;fontSize=22;align=left;" value="&lt;b style=&quot;color: rgb(139, 106, 154);&quot;&gt;Project Shell Space Operational Purpose&lt;br&gt;&lt;/b&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); background-color: transparent;&quot;&gt;Establishes secure, authenticated connections to our cloud platform to host shell space resources.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="180" width="436" x="371" y="1186" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-18" edge="1" parent="1" source="cttpx7-rtvRdx9965_Ys-14" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;startSize=8;endSize=8;" target="cttpx7-rtvRdx9965_Ys-7">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-25" edge="1" parent="1" source="cttpx7-rtvRdx9965_Ys-14" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;fontSize=12;startSize=8;endSize=8;" target="cttpx7-rtvRdx9965_Ys-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-26" edge="1" parent="1" source="cttpx7-rtvRdx9965_Ys-14" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;fontSize=12;startSize=8;endSize=8;" target="cttpx7-rtvRdx9965_Ys-16">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-14" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;color: light-dark(rgb(0, 0, 0), rgb(166, 128, 184)); font-size: 36px;&quot;&gt;&lt;b style=&quot;&quot;&gt;Providers.tf&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="91" width="230" x="66" y="689" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-15" parent="1" style="whiteSpace=wrap;html=1;fontSize=22;align=left;" value="&lt;font color=&quot;#a680b8&quot;&gt;&lt;b&gt;Technical definition&lt;/b&gt;&lt;/font&gt;&lt;div&gt;&lt;font color=&quot;#8b6a9a&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;Declares all provider requirements such as AWS, GCP, and backend State Configuration.&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="180" width="396.25" x="-375" y="796" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-16" parent="1" style="whiteSpace=wrap;html=1;fontSize=22;align=left;" value="&lt;div&gt;&lt;b style=&quot;color: rgb(139, 106, 154);&quot;&gt;Project Shell Space Operational Purpose&lt;br&gt;&lt;/b&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Parameterizes Project Shells Space environments so you can customise regions, resource scales and domains&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="180" width="436" x="351" y="796" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-23" edge="1" parent="1" source="cttpx7-rtvRdx9965_Ys-20" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.25;entryDx=0;entryDy=0;fontSize=12;startSize=8;endSize=8;" target="cttpx7-rtvRdx9965_Ys-21">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-24" edge="1" parent="1" source="cttpx7-rtvRdx9965_Ys-20" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.25;entryDx=0;entryDy=0;fontSize=12;startSize=8;endSize=8;" target="cttpx7-rtvRdx9965_Ys-22">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-32" edge="1" parent="1" source="cttpx7-rtvRdx9965_Ys-20" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;fontSize=12;startSize=8;endSize=8;" target="cttpx7-rtvRdx9965_Ys-30">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-20" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;color: light-dark(rgb(0, 0, 0), rgb(166, 128, 184)); font-size: 36px;&quot;&gt;&lt;b style=&quot;&quot;&gt;outputs.tf&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="91" width="230" x="66" y="1448" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-21" parent="1" style="whiteSpace=wrap;html=1;fontSize=22;align=left;" value="&lt;font color=&quot;#a680b8&quot;&gt;&lt;b&gt;Technical definition&lt;/b&gt;&lt;/font&gt;&lt;div&gt;&lt;font color=&quot;#8b6a9a&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;Config file that defines data points to expose after successful infrastructure deployment..&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="180" width="396.25" x="-365" y="1558" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-22" parent="1" style="whiteSpace=wrap;html=1;fontSize=22;align=left;" value="&lt;b style=&quot;color: rgb(139, 106, 154);&quot;&gt;Project Shell Space Operational Purpose&lt;br&gt;&lt;/b&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); background-color: transparent;&quot;&gt;Establishes secure, authenticated connections to our cloud platform to host shell space resources.&lt;/span&gt;" vertex="1">
+          <mxGeometry height="180" width="436" x="361" y="1545" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-28" parent="1" style="whiteSpace=wrap;html=1;fontSize=22;align=left;" value="&lt;font color=&quot;#a680b8&quot;&gt;&lt;b&gt;Technical definition&lt;/b&gt;&lt;/font&gt;&lt;div&gt;&lt;font color=&quot;#8b6a9a&quot;&gt;&lt;b&gt;&lt;br&gt;&lt;/b&gt;&lt;/font&gt;&lt;/div&gt;&lt;div&gt;&lt;div&gt;A config file that contains actual value assignments for variables declared within the configuration&lt;/div&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="180" width="396.25" x="-365" y="1962" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-29" parent="1" style="whiteSpace=wrap;html=1;fontSize=22;align=left;" value="&lt;b style=&quot;color: rgb(139, 106, 154);&quot;&gt;Project Shell Space Operational Purpose&lt;br&gt;&lt;/b&gt;Applies environment configs to isolate development and production Shell Space environments, e.g., isolating development and production&lt;div&gt;&lt;br&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="180" width="436" x="361" y="1962" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-33" edge="1" parent="1" source="cttpx7-rtvRdx9965_Ys-30" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;fontSize=12;startSize=8;endSize=8;" target="cttpx7-rtvRdx9965_Ys-28">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-30" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="&lt;font style=&quot;color: light-dark(rgb(0, 0, 0), rgb(166, 128, 184)); font-size: 36px;&quot;&gt;&lt;b style=&quot;&quot;&gt;terraform.tfvars&lt;/b&gt;&lt;/font&gt;" vertex="1">
+          <mxGeometry height="95" width="300" x="31" y="1836" as="geometry" />
+        </mxCell>
+        <mxCell id="cttpx7-rtvRdx9965_Ys-34" edge="1" parent="1" source="cttpx7-rtvRdx9965_Ys-30" style="edgeStyle=none;curved=1;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.011;entryY=0.589;entryDx=0;entryDy=0;entryPerimeter=0;fontSize=12;startSize=8;endSize=8;" target="cttpx7-rtvRdx9965_Ys-29">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
