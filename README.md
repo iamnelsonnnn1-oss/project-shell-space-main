@@ -1,6 +1,6 @@
 # Project Shell Space
 
-![Project Shell Space Logo](./assets/logo.jpeg)
+<img src="./assets/logo.jpeg" alt="Project Shell Space Logo" width="120"/>
 
 ---
 
