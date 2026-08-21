@@ -16,3 +16,6 @@ crash.*.log
 # Sensitive variable overrides
 secret.tfvars
 secrets.tfvars
+
+.DS_Store
+*.png
