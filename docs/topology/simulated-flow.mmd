@@ -1,0 +1,17 @@
+flowchart LR
+  T["Step 1: Terraform Provisions<br/>Network, security, encryption foundations"]
+  O["Step 2: Terraform Outputs<br/>Exports IDs/endpoints for automation input"]
+  A["Step 3: Ansible Configures<br/>Applies roles and environment state"]
+  M["Step 4: Monitoring Observes<br/>Captures logs, facts, operational signals"]
+
+  T --> O --> A --> M
+
+  subgraph F["Current Foundation Scope"]
+    F1["Built now: Terraform skeleton files"]
+    F2["Built now: Ansible framework structure"]
+    F3["Deferred: full host/service configuration"]
+  end
+
+  O --> F1
+  A --> F2
+  M --> F3

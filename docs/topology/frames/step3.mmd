@@ -1,0 +1,6 @@
+flowchart LR
+  T["Step 1: Terraform Provisions<br/>Network, security, encryption foundations"]
+  O["Step 2: Terraform Outputs<br/>Exports IDs/endpoints for automation input"]
+  A["🟧 Step 3 ACTIVE: Ansible Configures<br/>Applies roles and environment state"]
+  M["Step 4: Monitoring Observes<br/>Captures logs, facts, operational signals"]
+  T --> O --> A --> M

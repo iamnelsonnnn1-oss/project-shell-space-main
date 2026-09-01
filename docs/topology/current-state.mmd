@@ -1,0 +1,36 @@
+flowchart TD
+  OP["Operator / CI"] --> ACN["Ansible Control Node"]
+
+  subgraph CP["Control Plane"]
+    CFG["ansible.cfg<br/>Execution defaults and SSH behavior"]
+    INV["Inventories<br/>Environment-separated target definitions"]
+    GV["Group/Host Vars<br/>Scoped configuration data boundaries"]
+    RF["Roles Framework<br/>Reusable automation by domain"]
+    PB["Playbooks<br/>Ordered orchestration entry points"]
+    VA["Vault / Secrets Reference<br/>Secret access pattern boundary"]
+  end
+
+  subgraph MIP["Managed Infrastructure Plane"]
+    NL["Network Layer<br/>Connectivity and segmentation controls"]
+    SL["Security Layer<br/>Policy and hardening enforcement"]
+    CL["Compute Layer<br/>Service runtime placement targets"]
+    DL["Data Layer<br/>Persistent encrypted data services"]
+  end
+
+  subgraph OBS["Observability & State"]
+    RA["Run Logs / Artifacts<br/>Execution evidence and audit trail"]
+    FC["Fact Cache<br/>Cached host state for speed"]
+  end
+
+  ACN --> CFG
+  ACN --> INV
+  ACN --> GV
+  ACN --> RF
+  ACN --> PB
+  ACN --> VA
+  ACN --> NL
+  ACN --> SL
+  ACN --> CL
+  ACN --> DL
+  ACN --> RA
+  ACN --> FC
