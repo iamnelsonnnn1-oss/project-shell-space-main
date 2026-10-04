@@ -2,34 +2,32 @@ terraform {
   required_version = ">= 1.5.0"
 
   required_providers {
-    aws = {
-      source  = "hashicorp/aws"
+    google = {
+      source  = "hashicorp/google"
       version = "~> 5.0" # Pinned — update only after vulnerability review
     }
-    # gcp = {
-    #   source  = "hashicorp/google"
-    #   version = "~> 5.0"
+    # Enable when Cloudflare DNS/CDN is wired in
+    # cloudflare = {
+    #   source  = "cloudflare/cloudflare"
+    #   version = "~> 4.0"
     # }
   }
 
   # Remote state backend — configure before first apply
-  # backend "s3" {
-  #   bucket         = var.state_bucket
-  #   key            = "shell-space/terraform.tfstate"
-  #   region         = var.aws_region
-  #   encrypt        = true
-  #   dynamodb_table = var.state_lock_table
+  # backend "gcs" {
+  #   bucket = "REPLACE_WITH_STATE_BUCKET" # backend blocks cannot use variables
+  #   prefix = "shell-space/terraform.tfstate"
   # }
 }
 
-provider "aws" {
-  region = var.aws_region
+provider "google" {
+  project = var.project_id
+  region  = var.region
+  zone    = var.zone
 
-  default_tags {
-    tags = {
-      Project     = "shell-space"
-      Environment = var.environment
-      ManagedBy   = "terraform"
-    }
+  default_labels = {
+    project     = "shell-space"
+    environment = var.environment
+    managed_by  = "terraform"
   }
 }
