@@ -1,32 +1,19 @@
-output "vpc_id" {
-  description = "Shell Space VPC ID"
-  value       = aws_vpc.shell_space.id
+output "network_id" {
+  description = "Shell Space VPC network ID"
+  value       = google_compute_network.shell_space.id
 }
 
-output "kms_key_arn" {
-  description = "KMS encryption key ARN — pass to Ansible and downstream tools"
-  value       = aws_kms_key.shell_space.arn
+output "kms_key_id" {
+  description = "Cloud KMS crypto key ID — pass to Ansible and downstream tools"
+  value       = google_kms_crypto_key.shell_space.id
 }
 
-output "kms_key_alias" {
-  description = "KMS key alias"
-  value       = aws_kms_alias.shell_space.name
+output "app_instance_name" {
+  description = "App tier instance name"
+  value       = google_compute_instance.app.name
 }
 
-output "app_security_group_id" {
-  description = "App tier security group ID"
-  value       = aws_security_group.app.id
+output "app_external_ip" {
+  description = "App tier public IP — feeds Cloudflare DNS and Ansible inventory"
+  value       = google_compute_instance.app.network_interface[0].access_config[0].nat_ip
 }
-
-# PLACEHOLDER: Uncomment when database is active
-# output "db_endpoint" {
-#   description = "RDS database endpoint — feeds into Ansible inventory"
-#   value       = aws_db_instance.shell_space.endpoint
-#   sensitive   = true
-# }
-
-# PLACEHOLDER: Uncomment when compute tier is active
-# output "app_container_url" {
-#   description = "App container / load balancer URL"
-#   value       = aws_lb.shell_space.dns_name
-# }
