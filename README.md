@@ -44,7 +44,6 @@ By integrating end-to-end encryption, automated infrastructure delivery, and adv
 
 - **Secure by default** — Least privilege, closed ports, key-only and multi-factor access, no secrets in the repository.
 - **Human in the loop** — Every infrastructure and code change is reviewed and approved before it is applied.
-- **Lean by design** — Sized to run on a free-tier footprint for small teams, with a clear path to scale.
 - **Reproducible** — Infrastructure is provisioned with Terraform and configured with Ansible, so any environment can be rebuilt from the repository.
 
 ---
@@ -81,7 +80,7 @@ Traffic reaches the platform through an edge layer that terminates and filters r
 
 - [x] Security baseline and repository hardening
 - [x] Application file structure defined
-- [x] Terraform foundation (Google Cloud free tier)
+- [x] Terraform foundation (Google Cloud)
 - [x] Ansible roles: base, security, web, data
 - [ ] Cloud account activation and first deployment
 - [ ] Application implementation, file by file
