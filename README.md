@@ -80,7 +80,7 @@ Traffic reaches the platform through an edge layer that terminates and filters r
 ## Roadmap & Status
 
 - [x] Security baseline and repository hardening
-- [x] Application file structure mapped from the prototype
+- [x] Application file structure defined
 - [x] Terraform foundation (Google Cloud free tier)
 - [x] Ansible roles: base, security, web, data
 - [ ] Cloud account activation and first deployment
@@ -98,7 +98,6 @@ Traffic reaches the platform through an edge layer that terminates and filters r
 ├── main.tf, variables.tf, providers.tf, outputs.tf   # Terraform
 ├── ansible/        # Inventories, roles, playbooks, vault template
 ├── src/            # React application
-├── /         # Domain entities from the prototype
 ├── docs/topology/  # Architecture diagrams
 └── content/        # Project documents and prompts
 ```
