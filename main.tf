@@ -50,6 +50,39 @@ resource "google_compute_firewall" "app_https" {
   target_tags   = ["shell-space-app"]
 }
 
+# --- Firewall (SSH for Ansible) ---
+# count = 0 until ssh_allowed_cidrs is set, so SSH stays closed by default.
+resource "google_compute_firewall" "app_ssh" {
+  count       = length(var.ssh_allowed_cidrs) > 0 ? 1 : 0
+  name        = "shell-space-allow-ssh-${var.environment}"
+  network     = google_compute_network.shell_space.name
+  description = "SSH from admin ranges only"
+  direction   = "INGRESS"
+
+  allow {
+    protocol = "tcp"
+    ports    = ["22"]
+  }
+
+  source_ranges = var.ssh_allowed_cidrs
+  target_tags   = ["shell-space-app"]
+}
+
+# --- OS Login access (admins only) ---
+resource "google_project_iam_member" "os_admin_login" {
+  for_each = toset(var.admin_emails)
+  project  = var.project_id
+  role     = "roles/compute.osAdminLogin"
+  member   = "user:${each.value}"
+}
+
+resource "google_project_iam_member" "iap_tunnel" {
+  for_each = toset(var.admin_emails)
+  project  = var.project_id
+  role     = "roles/iap.tunnelResourceAccessor"
+  member   = "user:${each.value}"
+}
+
 # --- App Compute (Always Free e2-micro) ---
 resource "google_compute_instance" "app" {
   name         = "shell-space-app-${var.environment}"
@@ -78,6 +111,8 @@ resource "google_compute_instance" "app" {
 
   metadata = {
     block-project-ssh-keys = "true"
+    enable-oslogin         = "TRUE"
+    enable-oslogin-2fa     = "TRUE" # Requires Google 2-Step Verification (authenticator app) at SSH login
   }
 }
 

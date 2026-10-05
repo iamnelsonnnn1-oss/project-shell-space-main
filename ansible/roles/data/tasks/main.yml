@@ -1,0 +1,56 @@
+---
+- name: Fail if database password is not in the vault
+  ansible.builtin.assert:
+    that: vault_db_password is defined
+    fail_msg: "Define vault_db_password (see vault/vault.example.yml)."
+
+- name: Install PostgreSQL
+  ansible.builtin.apt:
+    name:
+      - postgresql
+      - python3-psycopg2
+    state: present
+
+- name: Bind PostgreSQL to localhost only
+  ansible.builtin.lineinfile:
+    path: "/etc/postgresql/15/main/postgresql.conf"
+    regexp: "^#?listen_addresses"
+    line: "listen_addresses = 'localhost'"
+  notify: Restart postgresql
+
+- name: Start PostgreSQL
+  ansible.builtin.service:
+    name: postgresql
+    state: started
+    enabled: true
+
+- name: Create application role
+  community.postgresql.postgresql_user:
+    name: "{{ data_db_user }}"
+    password: "{{ vault_db_password }}"
+  become_user: postgres
+  no_log: true
+
+- name: Create application database
+  community.postgresql.postgresql_db:
+    name: "{{ data_db_name }}"
+    owner: "{{ data_db_user }}"
+  become_user: postgres
+
+- name: Create backup directory
+  ansible.builtin.file:
+    path: "{{ data_backup_dir }}"
+    state: directory
+    owner: postgres
+    group: postgres
+    mode: "0700"
+
+- name: Schedule nightly pg_dump
+  ansible.builtin.cron:
+    name: shell-space-db-backup
+    user: postgres
+    hour: "3"
+    minute: "0"
+    job: >-
+      pg_dump {{ data_db_name }} | gzip > {{ data_backup_dir }}/{{ data_db_name }}-$(date +\%F).sql.gz
+      && find {{ data_backup_dir }} -name '*.sql.gz' -mtime +{{ data_backup_retention_days }} -delete

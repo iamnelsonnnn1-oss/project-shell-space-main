@@ -1,0 +1,7 @@
+---
+galaxy_info:
+  author: shell-space
+  description: App user and web root for the Shell Space frontend build
+  license: proprietary
+  min_ansible_version: "2.14"
+dependencies: []

@@ -1,0 +1,7 @@
+---
+security_ssh_port: 22
+security_ssh_allowed_cidrs: "{{ ssh_allowed_cidrs | default([]) }}"
+security_packages:
+  - ufw
+  - fail2ban
+  - unattended-upgrades

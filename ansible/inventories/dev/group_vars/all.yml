@@ -1,0 +1,4 @@
+---
+environment_name: dev
+domain_name: REPLACE_WITH_DOMAIN # Set when the domain is registered
+ssh_allowed_cidrs: ["0.0.0.0/0"] # PLACEHOLDER — restrict to your IP or the IAP range 35.235.240.0/20

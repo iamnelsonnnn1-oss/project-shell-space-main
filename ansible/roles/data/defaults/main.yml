@@ -1,0 +1,5 @@
+---
+data_db_name: shellspacedb
+data_db_user: shellspace
+data_backup_dir: /var/backups/shell-space
+data_backup_retention_days: 7

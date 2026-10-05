@@ -44,6 +44,23 @@ variable "allowed_cidr_blocks" {
   default     = ["0.0.0.0/0"] # PLACEHOLDER — replace with Cloudflare IP ranges
 }
 
+variable "ssh_allowed_cidrs" {
+  description = "Source ranges allowed to SSH (port 22). Default is Google's IAP range, so SSH only works through the IAP tunnel."
+  type        = list(string)
+  default     = ["35.235.240.0/20"]
+
+  validation {
+    condition     = !contains(var.ssh_allowed_cidrs, "0.0.0.0/0")
+    error_message = "Do not open SSH to the whole internet."
+  }
+}
+
+variable "admin_emails" {
+  description = "Google accounts allowed to SSH via OS Login (2-Step Verification enforced)"
+  type        = list(string)
+  default     = []
+}
+
 # --- Compute ---
 variable "app_machine_type" {
   description = "Compute Engine machine type for the app tier (e2-micro = Always Free)"

@@ -1,0 +1,28 @@
+---
+- name: Load vault secrets when present
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Include vault file
+      ansible.builtin.include_vars: "{{ item }}"
+      with_first_found:
+        - files: ["{{ playbook_dir }}/../vault/vault.yml"]
+          skip: true
+      no_log: true
+
+- name: Base configuration
+  hosts: all
+  roles:
+    - common
+    - security
+
+- name: Database tier
+  hosts: db
+  roles:
+    - data
+
+- name: Web tier
+  hosts: app
+  roles:
+    - compute
+    - network

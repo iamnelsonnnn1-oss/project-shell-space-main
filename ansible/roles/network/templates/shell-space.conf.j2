@@ -1,0 +1,25 @@
+# Managed by Ansible — do not edit by hand
+{% for cidr in network_cloudflare_ip_ranges %}
+set_real_ip_from {{ cidr }};
+{% endfor %}
+real_ip_header CF-Connecting-IP;
+
+server {
+    listen 443 ssl;
+    server_name {{ network_domain }};
+
+    ssl_certificate     {{ network_cert_path }};
+    ssl_certificate_key {{ network_key_path }};
+    ssl_protocols       TLSv1.2 TLSv1.3;
+
+    add_header X-Content-Type-Options nosniff always;
+    add_header X-Frame-Options DENY always;
+    add_header Referrer-Policy strict-origin-when-cross-origin always;
+
+    root {{ network_web_root }};
+    index index.html;
+
+    location / {
+        try_files $uri /index.html; # SPA routing
+    }
+}

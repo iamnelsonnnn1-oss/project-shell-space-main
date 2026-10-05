@@ -1,0 +1,5 @@
+---
+compute_app_user: shellspace
+compute_app_root: /srv/shell-space
+# The Vite build output (dist/) is deployed into this directory
+compute_web_root: "{{ compute_app_root }}/current"

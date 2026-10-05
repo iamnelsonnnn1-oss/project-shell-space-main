@@ -1,0 +1,4 @@
+---
+environment_name: staging
+domain_name: REPLACE_WITH_DOMAIN # Set when the domain is registered
+ssh_allowed_cidrs: []   # REQUIRED — set explicit admin CIDRs

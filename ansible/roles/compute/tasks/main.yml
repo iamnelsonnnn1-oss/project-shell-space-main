@@ -1,0 +1,18 @@
+---
+- name: Create unprivileged app user
+  ansible.builtin.user:
+    name: "{{ compute_app_user }}"
+    system: true
+    shell: /usr/sbin/nologin
+    create_home: false
+
+- name: Create app directories
+  ansible.builtin.file:
+    path: "{{ item }}"
+    state: directory
+    owner: "{{ compute_app_user }}"
+    group: "{{ compute_app_user }}"
+    mode: "0755"
+  loop:
+    - "{{ compute_app_root }}"
+    - "{{ compute_web_root }}"

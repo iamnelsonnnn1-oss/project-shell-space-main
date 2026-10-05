@@ -1,0 +1,7 @@
+---
+galaxy_info:
+  author: shell-space
+  description: Base OS configuration for Shell Space hosts
+  license: proprietary
+  min_ansible_version: "2.14"
+dependencies: []

@@ -1,0 +1,44 @@
+---
+- name: Update apt cache
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+- name: Install base packages
+  ansible.builtin.apt:
+    name: "{{ common_packages }}"
+    state: present
+
+- name: Set timezone
+  community.general.timezone:
+    name: "{{ common_timezone }}"
+
+- name: Create swap file
+  ansible.builtin.command:
+    cmd: "fallocate -l {{ common_swap_size_mb }}M {{ common_swap_file }}"
+    creates: "{{ common_swap_file }}"
+  register: common_swap_created
+
+- name: Restrict swap file permissions
+  ansible.builtin.file:
+    path: "{{ common_swap_file }}"
+    mode: "0600"
+    owner: root
+    group: root
+
+- name: Format swap file
+  ansible.builtin.command: "mkswap {{ common_swap_file }}"
+  when: common_swap_created.changed
+
+- name: Enable swap
+  ansible.posix.mount:
+    name: none
+    src: "{{ common_swap_file }}"
+    fstype: swap
+    opts: sw
+    state: present
+  register: common_swap_mount
+
+- name: Activate swap
+  ansible.builtin.command: "swapon {{ common_swap_file }}"
+  when: common_swap_created.changed

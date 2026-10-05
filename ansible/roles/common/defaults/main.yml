@@ -1,0 +1,10 @@
+---
+common_packages:
+  - ca-certificates
+  - curl
+  - chrony
+  - python3-apt
+common_timezone: UTC
+# e2-micro has 1 GB RAM; swap prevents OOM kills
+common_swap_size_mb: 1024
+common_swap_file: /swapfile
