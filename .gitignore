@@ -26,3 +26,6 @@ ansible/.vault_pass
 ansible/fact_cache/
 ansible/artifacts/
 ansible/collections/
+
+# Internal documents — never publish
+content/notebooklm-*
