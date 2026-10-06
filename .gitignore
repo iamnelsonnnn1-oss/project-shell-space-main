@@ -30,3 +30,7 @@ ansible/collections/
 
 # Internal documents — never publish
 content/notebooklm-*
+
+# Node
+node_modules/
+dist/

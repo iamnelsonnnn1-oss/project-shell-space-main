@@ -36,6 +36,11 @@ This document is the in-repo summary. Where it differs from the Charter, the dif
 2. **dnd-kit replaces `@hello-pangea/dnd`** (Charter §6, §7).
 3. **Cloudflare Tunnel replaces the public-origin option** (Charter §19 listed it as undecided).
 
+## Database roles and row-level security
+- The table-owner role (`shellspace`) runs migrations. The API connects as `shellspace_app`, which is not the owner and has no `BYPASSRLS`, so row-level security always applies.
+- Each request runs in a transaction with `app.user_id` and `app.workspace_id` set locally (`server/src/db/scope.js`). Policies check both the workspace and real membership via `SECURITY DEFINER` helpers.
+- Encryption columns (`*_ciphertext`, `encryption_meta`) are provisional until the key model is approved. No plaintext content column exists.
+
 ## Charter appendix note
 The Charter's infrastructure appendix (AWS, EC2/RDS, S3 and DynamoDB state, CloudWatch, Docker, Kubernetes, Grafana) is legacy reference material and is not implemented.
 
