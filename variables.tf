@@ -38,20 +38,14 @@ variable "subnet_cidr" {
   default     = "10.0.0.0/24" # PLACEHOLDER — confirm address space
 }
 
-variable "allowed_cidr_blocks" {
-  description = "Source ranges allowed to reach HTTPS. Restrict to Cloudflare ranges before prod."
-  type        = list(string)
-  default     = ["0.0.0.0/0"] # PLACEHOLDER — replace with Cloudflare IP ranges
-}
-
 variable "ssh_allowed_cidrs" {
-  description = "Source ranges allowed to SSH (port 22). Default is Google's IAP range, so SSH only works through the IAP tunnel."
+  description = "Source ranges allowed to SSH (port 22). Must stay within Google's IAP range so SSH only works through the IAP tunnel."
   type        = list(string)
   default     = ["35.235.240.0/20"]
 
   validation {
-    condition     = !contains(var.ssh_allowed_cidrs, "0.0.0.0/0")
-    error_message = "Do not open SSH to the whole internet."
+    condition     = alltrue([for c in var.ssh_allowed_cidrs : c == "35.235.240.0/20"])
+    error_message = "SSH is IAP-only: the only permitted range is 35.235.240.0/20."
   }
 }
 

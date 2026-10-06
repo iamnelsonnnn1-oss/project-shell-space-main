@@ -1,0 +1,4 @@
+# Copy to backend.hcl (gitignored) once the state bucket and project are confirmed.
+# The bucket must have object versioning enabled; the gcs backend provides state locking.
+bucket = "REPLACE_WITH_STATE_BUCKET"
+prefix = "shell-space/terraform.tfstate"

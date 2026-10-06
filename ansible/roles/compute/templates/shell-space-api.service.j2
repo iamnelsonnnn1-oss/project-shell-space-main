@@ -1,0 +1,26 @@
+[Unit]
+Description=Shell Space API (Fastify + WebSocket)
+After=network-online.target postgresql.service
+Wants=network-online.target
+
+[Service]
+Type=simple
+User={{ compute_app_user }}
+Group={{ compute_app_user }}
+WorkingDirectory={{ compute_api_root }}
+EnvironmentFile={{ compute_env_dir }}/api.env
+ExecStart=/usr/bin/node --max-old-space-size={{ compute_api_max_old_space_mb }} {{ compute_api_root }}/server.js
+Restart=on-failure
+RestartSec=5
+MemoryMax={{ compute_api_memory_max }}
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+ReadWritePaths={{ compute_api_root }}
+
+[Install]
+WantedBy=multi-user.target

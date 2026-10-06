@@ -1,4 +1,11 @@
 ---
 environment_name: prod
 domain_name: REPLACE_WITH_DOMAIN # Set when the domain is registered
-ssh_allowed_cidrs: []   # REQUIRED — set explicit admin CIDRs
+ssh_allowed_cidrs: ["35.235.240.0/20"] # IAP range only; never 0.0.0.0/0
+gcp_project_id: REPLACE_WITH_GCP_PROJECT_ID
+gcp_zone: us-central1-a
+# IAP is the only administrative path. Requires gcloud on the operator machine.
+ansible_ssh_common_args: >-
+  -o ProxyCommand="gcloud compute start-iap-tunnel {{ inventory_hostname }} 22
+  --listen-on-stdin --project={{ gcp_project_id }} --zone={{ gcp_zone }}"
+  -o StrictHostKeyChecking=accept-new

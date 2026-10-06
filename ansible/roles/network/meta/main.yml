@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: shell-space
-  description: nginx TLS front end restricted to Cloudflare
+  description: loopback-only nginx origin for Cloudflare Tunnel (static files, API proxy, WebSocket)
   license: proprietary
   min_ansible_version: "2.14"
 dependencies:

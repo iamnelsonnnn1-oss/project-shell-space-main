@@ -1,7 +1,7 @@
 ---
 galaxy_info:
   author: shell-space
-  description: Local PostgreSQL with nightly backups (free-tier VM, no managed SQL)
+  description: Local PostgreSQL with nightly backups (on-VM, low-memory tuning)
   license: proprietary
   min_ansible_version: "2.14"
 dependencies: []

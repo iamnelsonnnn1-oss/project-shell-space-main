@@ -3,3 +3,12 @@ compute_app_user: shellspace
 compute_app_root: /srv/shell-space
 # The Vite build output (dist/) is deployed into this directory
 compute_web_root: "{{ compute_app_root }}/current"
+# Fastify API: release directory containing server.js, listening on loopback only
+compute_api_root: "{{ compute_app_root }}/api"
+compute_api_port: 3000
+# Node.js is pinned to one major (24 LTS). Do not install from an unbounded "latest" channel.
+compute_node_major: 24
+# Heap cap keeps the API inside its share of the ~1 GB budget
+compute_api_max_old_space_mb: 192
+compute_api_memory_max: 300M
+compute_env_dir: /etc/shell-space
