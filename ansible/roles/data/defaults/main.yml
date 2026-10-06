@@ -1,6 +1,9 @@
 ---
 data_db_name: shellspacedb
+# Owner role: owns the tables and runs migrations. Never used by the API.
 data_db_user: shellspace
+# API login role: not the owner, so PostgreSQL row-level security applies to it.
+data_app_user: shellspace_app
 data_backup_dir: /var/backups/shell-space
 data_backup_retention_days: 7
 # Memory budget for a ~1 GB host shared with nginx, the API and cloudflared

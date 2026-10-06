@@ -1,6 +1,7 @@
 ---
 # Copy to vault.yml, fill in, then encrypt: ansible-vault encrypt vault/vault.yml
 # vault.yml and .vault_pass are gitignored.
-vault_db_password: REPLACE_ME
+vault_db_password: REPLACE_ME      # table owner / migrations
+vault_app_db_password: REPLACE_ME  # API login role (shellspace_app)
 # Cloudflare Tunnel token (used by the tunnel role; never commit the real value)
 vault_tunnel_token: REPLACE_ME

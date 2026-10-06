@@ -1,8 +1,10 @@
 ---
 - name: Fail if database password is not in the vault
   ansible.builtin.assert:
-    that: vault_db_password is defined
-    fail_msg: "Define vault_db_password (see vault/vault.example.yml)."
+    that:
+      - vault_db_password is defined
+      - vault_app_db_password is defined
+    fail_msg: "Define vault_db_password and vault_app_db_password (see vault/vault.example.yml)."
 
 - name: Install PostgreSQL
   ansible.builtin.apt:
@@ -37,6 +39,14 @@
   community.postgresql.postgresql_user:
     name: "{{ data_db_user }}"
     password: "{{ vault_db_password }}"
+  become_user: postgres
+  no_log: true
+
+- name: Create API login role (row-level security applies; no superuser, no BYPASSRLS)
+  community.postgresql.postgresql_user:
+    name: "{{ data_app_user }}"
+    password: "{{ vault_app_db_password }}"
+    role_attr_flags: LOGIN,NOSUPERUSER,NOCREATEDB,NOCREATEROLE,NOBYPASSRLS
   become_user: postgres
   no_log: true
 
