@@ -1,42 +1,8 @@
 ---
-- name: Fail if the Cloudflare origin certificate is not in the vault
-  ansible.builtin.assert:
-    that:
-      - vault_origin_cert is defined
-      - vault_origin_key is defined
-    fail_msg: "Define vault_origin_cert and vault_origin_key (see vault/vault.example.yml)."
-
 - name: Install nginx
   ansible.builtin.apt:
     name: nginx
     state: present
-
-- name: Create TLS directory
-  ansible.builtin.file:
-    path: /etc/ssl/shell-space
-    state: directory
-    owner: root
-    group: root
-    mode: "0750"
-
-- name: Install Cloudflare origin certificate
-  ansible.builtin.copy:
-    content: "{{ vault_origin_cert }}"
-    dest: "{{ network_cert_path }}"
-    owner: root
-    group: root
-    mode: "0644"
-  notify: Reload nginx
-
-- name: Install Cloudflare origin key
-  ansible.builtin.copy:
-    content: "{{ vault_origin_key }}"
-    dest: "{{ network_key_path }}"
-    owner: root
-    group: root
-    mode: "0600"
-  no_log: true
-  notify: Reload nginx
 
 - name: Render nginx site
   ansible.builtin.template:
@@ -45,7 +11,6 @@
     owner: root
     group: root
     mode: "0644"
-    validate: "nginx -t -c /etc/nginx/nginx.conf"
   notify: Reload nginx
 
 - name: Enable nginx site
@@ -60,14 +25,6 @@
     path: /etc/nginx/sites-enabled/default
     state: absent
   notify: Reload nginx
-
-- name: Allow HTTPS only from Cloudflare ranges
-  community.general.ufw:
-    rule: allow
-    port: "443"
-    proto: tcp
-    from_ip: "{{ item }}"
-  loop: "{{ network_cloudflare_ip_ranges }}"
 
 - name: Enable nginx
   ansible.builtin.service:

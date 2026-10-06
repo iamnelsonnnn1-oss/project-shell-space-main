@@ -2,11 +2,5 @@
 # Copy to vault.yml, fill in, then encrypt: ansible-vault encrypt vault/vault.yml
 # vault.yml and .vault_pass are gitignored.
 vault_db_password: REPLACE_ME
-vault_origin_cert: |
-  -----BEGIN CERTIFICATE-----
-  REPLACE_WITH_CLOUDFLARE_ORIGIN_CERT
-  -----END CERTIFICATE-----
-vault_origin_key: |
-  -----BEGIN PRIVATE KEY-----
-  REPLACE_WITH_CLOUDFLARE_ORIGIN_KEY
-  -----END PRIVATE KEY-----
+# Cloudflare Tunnel token (used by the tunnel role; never commit the real value)
+vault_tunnel_token: REPLACE_ME

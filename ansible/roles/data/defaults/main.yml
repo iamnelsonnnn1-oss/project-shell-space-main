@@ -3,3 +3,9 @@ data_db_name: shellspacedb
 data_db_user: shellspace
 data_backup_dir: /var/backups/shell-space
 data_backup_retention_days: 7
+# Memory budget for a ~1 GB host shared with nginx, the API and cloudflared
+data_pg_shared_buffers: 64MB
+data_pg_effective_cache_size: 256MB
+data_pg_work_mem: 2MB
+data_pg_maintenance_work_mem: 32MB
+data_pg_max_connections: 20

@@ -18,7 +18,7 @@ resource "google_compute_subnetwork" "app" {
 }
 
 # --- Cloud KMS Encryption Key ---
-# Note: not part of Always Free; an active key version costs a few cents/month.
+# Created but intentionally unused until the encryption model is approved.
 resource "google_kms_key_ring" "shell_space" {
   name     = "shell-space-keyring-${var.environment}"
   location = var.region
@@ -34,29 +34,17 @@ resource "google_kms_crypto_key" "shell_space" {
   }
 }
 
-# --- Firewall (App Tier) ---
-resource "google_compute_firewall" "app_https" {
-  name        = "shell-space-allow-https-${var.environment}"
-  network     = google_compute_network.shell_space.name
-  description = "HTTPS only into the app tier"
-  direction   = "INGRESS"
+# --- Ingress ---
+# No public 443 rule: Cloudflare Tunnel (outbound-only cloudflared) is the only application ingress.
+# The VPC's implicit deny-ingress applies to everything not explicitly allowed below.
 
-  allow {
-    protocol = "tcp"
-    ports    = ["443"]
-  }
-
-  source_ranges = var.allowed_cidr_blocks
-  target_tags   = ["shell-space-app"]
-}
-
-# --- Firewall (SSH for Ansible) ---
-# count = 0 until ssh_allowed_cidrs is set, so SSH stays closed by default.
+# --- Firewall (SSH via IAP only) ---
+# Source ranges are limited to Google's IAP range by variable validation; there is no public SSH rule.
 resource "google_compute_firewall" "app_ssh" {
   count       = length(var.ssh_allowed_cidrs) > 0 ? 1 : 0
   name        = "shell-space-allow-ssh-${var.environment}"
   network     = google_compute_network.shell_space.name
-  description = "SSH from admin ranges only"
+  description = "SSH from the IAP range only"
   direction   = "INGRESS"
 
   allow {
@@ -83,7 +71,15 @@ resource "google_project_iam_member" "iap_tunnel" {
   member   = "user:${each.value}"
 }
 
-# --- App Compute (Always Free e2-micro) ---
+# --- Service account (least privilege) ---
+# Deliberately holds NO roles. No KMS binding exists: a KMS consumer is created only after the
+# encryption and key-custody model is approved.
+resource "google_service_account" "app" {
+  account_id   = "shell-space-app-${var.environment}"
+  display_name = "Shell Space app VM (${var.environment}), no roles"
+}
+
+# --- App Compute (e2-micro) ---
 resource "google_compute_instance" "app" {
   name         = "shell-space-app-${var.environment}"
   machine_type = var.app_machine_type
@@ -100,7 +96,14 @@ resource "google_compute_instance" "app" {
 
   network_interface {
     subnetwork = google_compute_subnetwork.app.id
-    access_config {} # Ephemeral public IP
+    # Ephemeral public IP for OUTBOUND connectivity only (no Cloud NAT this iteration).
+    # No firewall rule admits inbound traffic through it.
+    access_config {}
+  }
+
+  service_account {
+    email  = google_service_account.app.email
+    scopes = ["https://www.googleapis.com/auth/logging.write"]
   }
 
   shielded_instance_config {
@@ -117,8 +120,7 @@ resource "google_compute_instance" "app" {
 }
 
 # --- Database ---
-# PLACEHOLDER: No managed SQL on free tier. Run Postgres on the VM via Ansible,
-# or use Firestore (has a free tier).
+# PostgreSQL runs on the VM and is configured by Ansible (no Terraform resource).
 
 # --- Monitoring / Budget ---
 # PLACEHOLDER: google_billing_budget with alert thresholds — add before first apply.

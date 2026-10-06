@@ -4,7 +4,7 @@ terraform {
   required_providers {
     google = {
       source  = "hashicorp/google"
-      version = "~> 5.0" # Pinned — update only after vulnerability review
+      version = "= 5.45.2" # Exact pin; lock file is committed. Update only after vulnerability review
     }
     # Enable when Cloudflare DNS/CDN is wired in
     # cloudflare = {
@@ -13,11 +13,10 @@ terraform {
     # }
   }
 
-  # Remote state backend — configure before first apply
-  # backend "gcs" {
-  #   bucket = "REPLACE_WITH_STATE_BUCKET" # backend blocks cannot use variables
-  #   prefix = "shell-space/terraform.tfstate"
-  # }
+  # Remote state (GCS with locking) must be established before any production apply.
+  # Enable only after the bucket/project are confirmed: uncomment, then run
+  #   terraform init -backend-config=backend.hcl   (see backend.hcl.example)
+  # backend "gcs" {}
 }
 
 provider "google" {

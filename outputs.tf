@@ -13,7 +13,12 @@ output "app_instance_name" {
   value       = google_compute_instance.app.name
 }
 
-output "app_external_ip" {
-  description = "App tier public IP — feeds Cloudflare DNS and Ansible inventory"
-  value       = google_compute_instance.app.network_interface[0].access_config[0].nat_ip
+output "app_zone" {
+  description = "App tier zone — used by the Ansible IAP ProxyCommand"
+  value       = google_compute_instance.app.zone
+}
+
+output "app_service_account_email" {
+  description = "App VM service account (holds no roles)"
+  value       = google_service_account.app.email
 }

@@ -1,0 +1,8 @@
+---
+galaxy_info:
+  author: shell-space
+  description: cloudflared outbound-only Cloudflare Tunnel (the only application ingress)
+  license: proprietary
+  min_ansible_version: "2.14"
+dependencies:
+  - role: network

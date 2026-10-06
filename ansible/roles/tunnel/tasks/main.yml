@@ -1,0 +1,63 @@
+---
+- name: Fail if the tunnel token is not in the vault
+  ansible.builtin.assert:
+    that: vault_tunnel_token is defined
+    fail_msg: "Define vault_tunnel_token (see vault/vault.example.yml)."
+
+- name: Install Cloudflare package signing key
+  ansible.builtin.get_url:
+    url: https://pkg.cloudflare.com/cloudflare-main.gpg
+    dest: /etc/apt/keyrings/cloudflare-main.gpg
+    mode: "0644"
+
+- name: Add Cloudflare apt repository
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared any main"
+    filename: cloudflared
+    state: present
+
+- name: Install cloudflared
+  ansible.builtin.apt:
+    name: "{{ 'cloudflared=' ~ tunnel_cloudflared_version if tunnel_cloudflared_version | length > 0 else 'cloudflared' }}"
+    state: present
+    update_cache: true
+
+- name: Create cloudflared service user
+  ansible.builtin.user:
+    name: "{{ tunnel_user }}"
+    system: true
+    shell: /usr/sbin/nologin
+    create_home: false
+
+- name: Create cloudflared config directory
+  ansible.builtin.file:
+    path: "{{ tunnel_env_dir }}"
+    state: directory
+    owner: root
+    group: "{{ tunnel_user }}"
+    mode: "0750"
+
+- name: Store tunnel token
+  ansible.builtin.copy:
+    content: "TUNNEL_TOKEN={{ vault_tunnel_token }}\n"
+    dest: "{{ tunnel_env_dir }}/tunnel.env"
+    owner: root
+    group: "{{ tunnel_user }}"
+    mode: "0640"
+  no_log: true
+  notify: Restart cloudflared
+
+- name: Install cloudflared systemd unit
+  ansible.builtin.template:
+    src: cloudflared.service.j2
+    dest: /etc/systemd/system/cloudflared.service
+    owner: root
+    group: root
+    mode: "0644"
+  notify: Restart cloudflared
+
+- name: Enable cloudflared
+  ansible.builtin.systemd:
+    name: cloudflared
+    enabled: true
+    daemon_reload: true

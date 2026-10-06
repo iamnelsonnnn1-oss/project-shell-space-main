@@ -1,0 +1,20 @@
+[Unit]
+Description=Cloudflare Tunnel (outbound-only application ingress)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User={{ tunnel_user }}
+EnvironmentFile={{ tunnel_env_dir }}/tunnel.env
+ExecStart=/usr/bin/cloudflared --no-autoupdate tunnel run
+Restart=on-failure
+RestartSec=5
+MemoryMax={{ tunnel_memory_max }}
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

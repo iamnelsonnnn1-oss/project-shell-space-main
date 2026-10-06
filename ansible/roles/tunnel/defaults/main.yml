@@ -1,0 +1,7 @@
+---
+tunnel_user: cloudflared
+tunnel_env_dir: /etc/cloudflared
+# Pin the Debian package version before the first run (e.g. "2025.8.1"); empty installs the repo's current release.
+tunnel_cloudflared_version: ""
+# The tunnel's public hostname and origin (http://127.0.0.1:8080) are configured in the Cloudflare dashboard.
+tunnel_memory_max: 100M

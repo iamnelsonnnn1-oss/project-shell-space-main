@@ -18,6 +18,15 @@
     line: "listen_addresses = 'localhost'"
   notify: Restart postgresql
 
+- name: Apply low-memory tuning
+  ansible.builtin.template:
+    src: 10-shell-space.conf.j2
+    dest: /etc/postgresql/15/main/conf.d/10-shell-space.conf
+    owner: postgres
+    group: postgres
+    mode: "0644"
+  notify: Restart postgresql
+
 - name: Start PostgreSQL
   ansible.builtin.service:
     name: postgresql

@@ -1,16 +1,21 @@
 # Managed by Ansible — do not edit by hand
-{% for cidr in network_cloudflare_ip_ranges %}
-set_real_ip_from {{ cidr }};
-{% endfor %}
+# Loopback-only origin for Cloudflare Tunnel. TLS terminates at the Cloudflare edge.
+set_real_ip_from 127.0.0.1;
 real_ip_header CF-Connecting-IP;
 
-server {
-    listen 443 ssl;
-    server_name {{ network_domain }};
+map $http_upgrade $connection_upgrade {
+    default upgrade;
+    ''      close;
+}
 
-    ssl_certificate     {{ network_cert_path }};
-    ssl_certificate_key {{ network_key_path }};
-    ssl_protocols       TLSv1.2 TLSv1.3;
+upstream shell_space_api {
+    server {{ network_api_upstream }};
+    keepalive 8;
+}
+
+server {
+    listen {{ network_listen_address }}:{{ network_listen_port }};
+    server_name {{ network_domain }};
 
     add_header X-Content-Type-Options nosniff always;
     add_header X-Frame-Options DENY always;
@@ -18,6 +23,23 @@ server {
 
     root {{ network_web_root }};
     index index.html;
+
+    location /api/ {
+        proxy_pass http://shell_space_api;
+        proxy_http_version 1.1;
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-Proto https;
+    }
+
+    location /ws {
+        proxy_pass http://shell_space_api;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection $connection_upgrade;
+        proxy_set_header Host $host;
+        proxy_read_timeout 3600s;
+    }
 
     location / {
         try_files $uri /index.html; # SPA routing
