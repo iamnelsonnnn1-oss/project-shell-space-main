@@ -1,6 +1,6 @@
 # Infrastructure Decision: GCP Free Tier + Cloudflare
 
-**Decision:** GCP replaces AWS. OCI was considered but is not used. Cloudflare (free) fronts the app for DNS/CDN.
+**Decision:** GCP replaces AWS. OCI was considered but is not used. Cloudflare Tunnel is the only application ingress; IAP is the only admin path.
 **Status:** Waiting on GCP account activation (prepayment). Nothing is applied until then.
 
 ## Free tier limits (verify at https://cloud.google.com/free)
@@ -11,11 +11,11 @@
 - No managed SQL on free tier: run Postgres on the VM, or use Firestore
 
 ## Cloudflare role
-Free DNS, CDN and proxy in front of the VM. Cached/proxied traffic is where the "unlimited bandwidth" comes from.
+Cloudflare Tunnel (`cloudflared` on the VM, outbound only) carries all application traffic. No public 443 or SSH rule exists. The VM public IP is kept for outbound connectivity only; Cloud NAT is not used in this iteration.
 
 ## Terraform
-- `providers.tf`: `hashicorp/google ~> 5.0` (Cloudflare provider commented, enable later)
-- `variables.tf` / `main.tf` / `outputs.tf` / `terraform.tfvars`: VPC, subnet, KMS, firewall (443), e2-micro VM
+- `providers.tf`: `hashicorp/google ~> 5.0` (Cloudflare provider commented, enable later; pinned exactly, lock file committed)
+- `variables.tf` / `main.tf` / `outputs.tf` / `terraform.tfvars`: VPC, subnet, KMS, IAP-only SSH firewall, e2-micro VM (no 443 rule)
 
 ## AWS -> GCP mapping
 | AWS | GCP |
@@ -29,5 +29,5 @@ Free DNS, CDN and proxy in front of the VM. Cached/proxied traffic is where the 
 ## Before first apply
 1. Activate GCP, create project, set `project_id` in `terraform.tfvars`
 2. Create a billing budget + alerts
-3. Restrict `allowed_cidr_blocks` to Cloudflare IP ranges
+3. Review the service account/IAM model (no KMS consumer until approved)
 4. Configure the GCS state backend

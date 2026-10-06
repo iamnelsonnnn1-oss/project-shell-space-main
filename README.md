@@ -52,14 +52,14 @@ By integrating end-to-end encryption, automated infrastructure delivery, and adv
 
 ```mermaid
 flowchart LR
-    U[Users] --> E[Edge: DNS, CDN, TLS proxy]
-    E --> A[App tier: static web app behind nginx]
+    U[Users] --> E[Cloudflare edge]
+    E -. Tunnel .-> A[App tier: nginx + Fastify API + WebSocket]
     A --> D[(Data tier: PostgreSQL)]
     T[Terraform] -. provisions .-> A
     N[Ansible] -. configures .-> A
 ```
 
-Traffic reaches the platform through an edge layer that terminates and filters requests. Terraform provisions the infrastructure and Ansible configures and hardens it. Detailed diagrams live in [`docs/topology`](./docs/topology).
+Traffic reaches the platform only through a Cloudflare Tunnel; the host exposes no public application or SSH port, and administration is through IAP only. Terraform provisions the infrastructure and Ansible configures and hardens it. Detailed diagrams live in [`docs/topology`](./docs/topology).
 
 ---
 
@@ -67,11 +67,11 @@ Traffic reaches the platform through an edge layer that terminates and filters r
 
 | Layer | Technology |
 |---|---|
-| Frontend | React, Vite, Tailwind CSS, shadcn/ui |
-| Backend services | Self-managed services |
+| Frontend | React, Vite, Tailwind CSS, shadcn/ui, React Router, TanStack Query, react-hook-form, Zod, dnd-kit |
+| Backend | Node.js 24 LTS, Fastify, native WebSocket |
 | Infrastructure as Code | Terraform (Google Cloud) |
 | Configuration management | Ansible |
-| Edge | Cloudflare |
+| Edge | Cloudflare Tunnel |
 | Data | PostgreSQL |
 
 ---
@@ -109,10 +109,10 @@ The infrastructure is not yet deployed. Once the cloud account is active:
 
 1. Copy `terraform.tfvars` placeholders and set your project values (never commit secrets).
 2. Run `terraform plan` and review before any `apply`.
-3. Configure the host with `ansible-playbook ansible/playbooks/site.yml`.
+3. Configure the host with Ansible through the IAP tunnel, after a reviewed `--check` run.
 
 ---
 
 ## Contributing
 
-The project is currently maintained by a single owner who approves every change. Pull request reviews will be required on `main` once additional developers join.
+All changes land through pull requests. `main` requires one approving review and the rule is not bypassed as a normal workflow. See [`docs/architecture/DECISIONS.md`](./docs/architecture/DECISIONS.md) for the architecture reference and decision record.
