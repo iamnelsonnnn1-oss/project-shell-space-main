@@ -33,33 +33,32 @@ By integrating end-to-end encryption, automated infrastructure delivery, and adv
 
 ## Key Security Features
 
-- **Zero-Trust Access Control** — Strict identity verification and role-based policy enforcement across all communication channels.
-- **End-to-End Encryption** — All endpoints communicate through encrypted tunnels, with mandatory encryption at rest and in transit.
-- **Dynamic Infrastructure as Code** — Provisioned fully through version-controlled Terraform with zero hardcoded credentials or static IP bindings.
-- **Telemetry & Threat Detection** — Built for continuous auditability and integration with anomaly-based detection mechanisms.
+- **Zero-Trust Access Control**: Strict identity verification and role-based policy enforcement across all communication channels.
+- **End-to-End Encryption**: All endpoints communicate through encrypted tunnels, with mandatory encryption at rest and in transit.
+- **Dynamic Infrastructure as Code**: Provisioned fully through version-controlled Terraform with zero hardcoded credentials or static IP bindings.
+- **Telemetry & Threat Detection**: Built for continuous auditability and integration with anomaly-based detection mechanisms.
 
 ---
 
 ## Design Principles
 
-- **Secure by default** — Least privilege, closed ports, key-only and multi-factor access, no secrets in the repository.
-- **Human in the loop** — Every infrastructure and code change is reviewed and approved before it is applied.
-- **Reproducible** — Infrastructure is provisioned with Terraform and configured with Ansible, so any environment can be rebuilt from the repository.
+- **Secure by default**: Least privilege, closed ports, key-only and multi-factor access, no secrets in the repository.
+- **Human in the loop**: Every infrastructure and code change is reviewed and approved before it is applied.
+- **Reproducible**: Infrastructure is provisioned with Terraform and configured with Ansible, so any environment can be rebuilt from the repository.
 
 ---
 
 ## Architecture at a Glance
 
-```mermaid
-flowchart LR
-    U[Users] --> E[Edge: DNS, CDN, TLS proxy]
-    E --> A[App tier: static web app behind nginx]
-    A --> D[(Data tier: PostgreSQL)]
-    T[Terraform] -. provisions .-> A
-    N[Ansible] -. configures .-> A
-```
+<p align="center">
+  <a href="./docs/topology/architecture.png">
+    <img src="./docs/topology/architecture.png" alt="Project Shell Space architecture diagram" width="100%"/>
+  </a>
+  <br/>
+  <sub>Click the diagram to open it full size.</sub>
+</p>
 
-Traffic reaches the platform through an edge layer that terminates and filters requests. Terraform provisions the infrastructure and Ansible configures and hardens it. Detailed diagrams live in [`docs/topology`](./docs/topology).
+Users reach the platform only through a Cloudflare Tunnel, so the VM exposes no public application or SSH port. Administrators connect through IAP with OS Login and 2FA. Terraform provisions the infrastructure and Ansible configures and hardens it. More diagrams live in [`docs/topology`](./docs/topology).
 
 ---
 
@@ -76,40 +75,31 @@ Traffic reaches the platform through an edge layer that terminates and filters r
 
 ---
 
-## Roadmap & Status
-
-- [x] Security baseline and repository hardening
-- [x] Application file structure defined
-- [x] Terraform foundation (Google Cloud)
-- [x] Ansible roles: base, security, web, data
-- [ ] Cloud account activation and first deployment
-- [ ] Application implementation, file by file
-- [ ] Hardening, monitoring and launch
-
-> 🔒 *This project is actively under construction. Architecture and infrastructure details will be documented as layers are completed and approved.*
-
----
-
 ## Repository Layout
 
+| Area | Location | What lives there |
+|---|---|---|
+| Infrastructure | `main.tf` `variables.tf` `providers.tf` `outputs.tf` | Terraform for Google Cloud |
+| Configuration | `ansible/` | Inventories, roles, playbooks and the vault template |
+| Application | `src/` | React frontend |
+| Diagrams | `docs/topology/` | Architecture diagrams |
+| Documents | `content/` | Project documents and prompts |
+
 ```text
-.
-├── main.tf, variables.tf, providers.tf, outputs.tf   # Terraform
-├── ansible/        # Inventories, roles, playbooks, vault template
-├── src/            # React application
-├── docs/topology/  # Architecture diagrams
-└── content/        # Project documents and prompts
+project-shell-space/
+├── main.tf              Terraform: network, VM, KMS
+├── variables.tf
+├── providers.tf
+├── outputs.tf
+├── ansible/
+│   ├── inventories/     dev, staging, prod
+│   ├── roles/           common, security, data, network, compute
+│   ├── playbooks/
+│   └── vault/
+├── src/                 React application
+├── docs/topology/       Architecture diagrams
+└── content/             Documents and prompts
 ```
-
----
-
-## Getting Started
-
-The infrastructure is not yet deployed. Once the cloud account is active:
-
-1. Copy `terraform.tfvars` placeholders and set your project values (never commit secrets).
-2. Run `terraform plan` and review before any `apply`.
-3. Configure the host with Ansible through the IAP tunnel, after a reviewed `--check` run.
 
 ---
 

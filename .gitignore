@@ -19,7 +19,7 @@ secrets.tfvars
 
 .DS_Store
 *.png
-
+!docs/topology/architecture.png
 # Ansible secrets and caches
 ansible/vault/vault.yml
 ansible/.vault_pass

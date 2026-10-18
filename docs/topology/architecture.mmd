@@ -1,0 +1,17 @@
+%%{init: {"theme":"base","flowchart":{"nodeSpacing":50,"rankSpacing":80,"htmlLabels":true},"themeVariables":{"fontSize":"22px","fontFamily":"Helvetica, Arial, sans-serif","primaryColor":"#EEF2FF","primaryBorderColor":"#4F46E5","lineColor":"#475569","clusterBkg":"#F8FAFC","clusterBorder":"#94A3B8"}}}%%
+flowchart LR
+    U([Users]) --> EDGE[Cloudflare<br/>DNS, TLS, WAF]
+    EDGE -. Tunnel .-> TUN
+
+    subgraph VM [" GCP e2-micro VM: Debian 12, about 1 GB RAM "]
+        direction LR
+        TUN[cloudflared<br/>outbound only] --> NGX[nginx<br/>loopback origin]
+        NGX --> API[Node.js 24 + Fastify<br/>REST and WebSocket]
+        API --> PG[(PostgreSQL<br/>row-level security)]
+    end
+
+    ADM([Administrators]) --> IAP[IAP + OS Login<br/>with 2FA] --> VM
+    API -. planned .-> KMS[(Cloud KMS<br/>key custody)]
+    API -. provider interface .-> VID[External<br/>video provider]
+    TF[Terraform] -. provisions .-> VM
+    ANS[Ansible] -. configures via IAP .-> VM
