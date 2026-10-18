@@ -109,10 +109,10 @@ The infrastructure is not yet deployed. Once the cloud account is active:
 
 1. Copy `terraform.tfvars` placeholders and set your project values (never commit secrets).
 2. Run `terraform plan` and review before any `apply`.
-3. Configure the host with `ansible-playbook ansible/playbooks/site.yml`.
+3. Configure the host with Ansible through the IAP tunnel, after a reviewed `--check` run.
 
 ---
 
 ## Contributing
 
-The project is currently maintained by a single owner who approves every change. Pull request reviews will be required on `main` once additional developers join.
+All changes land through pull requests. `main` requires one approving review and the rule is not bypassed as a normal workflow.
