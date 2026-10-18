@@ -109,10 +109,22 @@ The infrastructure is not yet deployed. Once the cloud account is active:
 
 1. Copy `terraform.tfvars` placeholders and set your project values (never commit secrets).
 2. Run `terraform plan` and review before any `apply`.
-3. Configure the host with `ansible-playbook ansible/playbooks/site.yml`.
+3. Configure the host with Ansible through the IAP tunnel, after a reviewed `--check` run.
 
 ---
 
 ## Contributing
 
-The project is currently maintained by a single owner who approves every change. Pull request reviews will be required on `main` once additional developers join.
+**Led by Lead DevSecOps Engineer Nelson Ortiz.**
+
+All changes land through pull requests and are reviewed before they merge.
+
+---
+
+## Security & Ownership
+
+This is **proprietary work. All rights reserved.** No one may copy, reuse, redistribute, modify or use this project, in whole or in part, for personal or commercial purposes without the owner's explicit written permission.
+
+To request permission, or for any other use, contact the repository owner, Nelson Ortiz, through his GitHub profile ([@iamnelsonnnn1-oss](https://github.com/iamnelsonnnn1-oss)).
+
+To report a security vulnerability, do not open a public issue. Contact the owner privately in the same way.
